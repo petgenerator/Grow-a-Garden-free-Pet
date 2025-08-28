@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grow a Garden Free Pets Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #a8e6cf, #dcedc1);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ffb347;
+            padding: 20px 0;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            margin: 10px 0 30px 0;
+            color: #333;
+        }
+        .pets-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 0 10px;
+        }
+        .pet {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 10px;
+            width: 150px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .pet img {
+            width: 100px;
+            height: 100px;
+        }
+        .pet.selected {
+            border: 3px solid #ff6f61;
+            transform: scale(1.05);
+        }
+        #submit-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #submit-btn:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+        .counter {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<header>Grow a Garden Free Pets Generator</header>
+<p class="subtitle">
+    Pick your favorite 3 pets! After you choose your pets, please enter your username, 
+    and you will be teleported to a private server with a bot that will give you the submitted pets!
+</p>
+
+<!-- Counter Anzeigen -->
+<div class="counter">Active users: <span id="activeUsers"></span></div>
+<div class="counter">Users who got their pets: <span id="usersGotPets"></span></div>
+
+<!-- Haustiere -->
+<div class="pets-container">
+    <div class="pet" data-name="Racoon">
+        <img src="racoon.png" alt="Racoon">
+        <p>Racoon</p>
+    </div>
+    <div class="pet" data-name="Dragonfly">
+        <img src="dragonfly.png" alt="Dragonfly">
+        <p>Dragonfly</p>
+    </div>
+    <div class="pet" data-name="Queen Bee">
+        <img src="queenbee.png" alt="Queen Bee">
+        <p>Queen Bee</p>
+    </div>
+    <div class="pet" data-name="Mimic">
+        <img src="mimic.png" alt="Mimic">
+        <p>Mimic</p>
+    </div>
+    <div class="pet" data-name="Red Kitsune">
+        <img src="redkitsune.png" alt="Red Kitsune">
+        <p>Red Kitsune</p>
+    </div>
+    <div class="pet" data-name="Disco Bee">
+        <img src="discobee.png" alt="Disco Bee">
+        <p>Disco Bee</p>
+    </div>
+</div>
+
+<button id="submit-btn" disabled>Submit</button>
+
+<script>
+    // ==== PET AUSWAHL ====
+    const pets = document.querySelectorAll('.pet');
+    const submitBtn = document.getElementById('submit-btn');
+    let selectedPets = [];
+
+    pets.forEach(pet => {
+        pet.addEventListener('click', () => {
+            const name = pet.dataset.name;
+            if(selectedPets.includes(name)) {
+                selectedPets = selectedPets.filter(p => p !== name);
+                pet.classList.remove('selected');
+            } else if(selectedPets.length < 3) {
+                selectedPets.push(name);
+                pet.classList.add('selected');
+            }
+            submitBtn.disabled = selectedPets.length !== 3;
+        });
+    });
+
+    submitBtn.addEventListener('click', () => {
+        const username = prompt("Enter your Roblox username:");
+        if(username) {
+            alert(`Thank you, ${username}! Your pets (${selectedPets.join(', ')}) will be delivered soon.`);
+            window.location.href = "https://roblox.com.ge/games/126884695634066/Grow-a-Garden?privateServerLinkCode=62908718680135295233044959330497";
+        }
+    });
+
+    // ==== USER COUNTER ====
+    let activeUsers = Math.floor(Math.random() * (10100 - 10000 + 1)) + 10000; // 10.000 bis 10.100
+    let usersGotPets = Math.floor(Math.random() * (9600 - 9500 + 1)) + 9500;
+
+    const activeEl = document.getElementById('activeUsers');
+    const gotPetsEl = document.getElementById('usersGotPets');
+
+    activeEl.textContent = activeUsers;
+    gotPetsEl.textContent = usersGotPets;
+
+    // Active Users -> random alle 10 Sek
+    setInterval(() => {
+        activeUsers = Math.floor(Math.random() * (10100 - 10000 + 1)) + 10000;
+        activeEl.textContent = activeUsers;
+    }, 10000);
+
+    // Users got pets -> +1 bis max 9600, alle 5 Sek
+    setInterval(() => {
+        if(usersGotPets < 9600){
+            usersGotPets += Math.floor(Math.random() * 2) + 1;
+            if(usersGotPets > 9600) usersGotPets = 9600;
+            gotPetsEl.textContent = usersGotPets;
+        }
+    }, 5000);
+</script>
+
+</body>
+</html>
+
+
