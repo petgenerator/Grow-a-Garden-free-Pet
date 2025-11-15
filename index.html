@@ -43,6 +43,7 @@
         .pet img {
             width: 100px;
             height: 100px;
+            pointer-events: none; /* <<< CLICK FIX */
         }
         .pet.selected {
             border: 3px solid #ff6f61;
@@ -74,7 +75,7 @@
 
 <header>Grow a Garden Free Pets Generator</header>
 <p class="subtitle">
-    Pick your favorite 3 pets! After selecting your pets, enter your username!
+    Pick your favorite 3 pets! After you choose your pets, enter your username.
 </p>
 
 <div class="counter">Active users: <span id="activeUsers"></span></div>
@@ -117,13 +118,16 @@
     pets.forEach(pet => {
         pet.addEventListener('click', () => {
             const name = pet.dataset.name;
+
             if (selectedPets.includes(name)) {
                 selectedPets = selectedPets.filter(p => p !== name);
                 pet.classList.remove('selected');
-            } else if (selectedPets.length < 3) {
+            } 
+            else if (selectedPets.length < 3) {
                 selectedPets.push(name);
                 pet.classList.add('selected');
             }
+
             submitBtn.disabled = selectedPets.length !== 3;
         });
     });
@@ -139,14 +143,22 @@
     let activeUsers = Math.floor(Math.random() * (10100 - 10000 + 1)) + 10000;
     let usersGotPets = Math.floor(Math.random() * (9600 - 9500 + 1)) + 9500;
 
-    const activeEl = document.getElementById('activeUsers');
-    const gotPetsEl = document.getElementById('usersGotPets');
-
-    activeEl.textContent = activeUsers;
-    gotPetsEl.textContent = usersGotPets;
+    document.getElementById('activeUsers').textContent = activeUsers;
+    document.getElementById('usersGotPets').textContent = usersGotPets;
 
     setInterval(() => {
-        activeU
+        activeUsers = Math.floor(Math.random() * (10100 - 10000 + 1)) + 10000;
+        document.getElementById('activeUsers').textContent = activeUsers;
+    }, 10000);
 
+    setInterval(() => {
+        if(usersGotPets < 9600){
+            usersGotPets += Math.floor(Math.random() * 2) + 1;
+            if(usersGotPets > 9600) usersGotPets = 9600;
+            document.getElementById('usersGotPets').textContent = usersGotPets;
+        }
+    }, 5000);
+</script>
 
-
+</body>
+</html>
